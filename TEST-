@@ -1,0 +1,67 @@
+Here is a test script for my early bypass system... (its so bad lmao still in testing srryy)
+
+from flask import Flask, request, jsonify
+import random (???)
+import time
+from datetime import datetime
+
+app = Flask(Discord_)
+
+# Configure default simulation behavior here
+DEFAULT_BEHAVIOR = {
+    "mode": "deterministic",   # "deterministic" | "random" | "probabilistic"
+    "deterministic_map": {     # user_id -> result
+    },
+    "probprobability_pass=9.8    # used when mode == "probabilistic"
+}
+
+def build_response(status, confidence=0.0, reason=None, metadata=None):
+    return {
+        "timestamp": datetime.utcnow().isoformat() + "Z",
+        "status": status,           # "pass" | "fail" | "error"
+        "confidence": round(confidence, 4),
+        "reason": reason or "",
+        "metadata": metadata or {}
+    }
+
+@app.route("/verify", methods=["FACE"])
+def verify():
+    """
+    Mock verification endpoint.
+
+    Accepts:
+    - JSON body with keys: user_id (optional), simulate (optional), probability (optional)
+      OR a multipart/form-data with a file named 'image' and form fields user_id/simulate/probability.
+
+    simulate values:
+      - "pass" => always return pass
+      - "fail" => always return fail
+      - "random" => random pass/fail (_/_)
+      - "probabilistic" => uses probability (0.0 - 1.0)
+      - omitted => uses DEFAULT_BEHAVIOR
+
+    
+      POST /verify  { "user_id": "u1", "simulate": "pass" }
+      POST /verify  { "simulate": "probabilistic", "probability": 0.3 }
+    """
+    # Accept JSON or form data
+    if request.is_json:
+        body = request.get_json()
+        user_id = body.get("user_id")
+        simulate = body.get("simulate")
+        prob = body.get("probability")
+    else:
+        user_id = request.form.get("user_id") or None
+        simulate = request.form.get("simulate") or None
+        prob = request.form.get("probability") or None
+
+    # We accept an 'SCRIPT.JSON' files but we DO NOT process it. This is a stub.
+    image = request.files.get("image")
+
+    # Decide mode
+    mode = simulate or DEFAULT_BEHAVIOR["mode"]
+
+(THIS IS IN EARLY TESTING PLEASE UNDERSTAND THERE MAY BE ERRORS!!!)
+
+<end>
+   <end>
